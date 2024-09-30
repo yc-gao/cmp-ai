@@ -10,7 +10,7 @@ end
 local M = {}
 
 function M:setup(opts)
-    self.provider = provider
+    M.provider = provider
 end
 
 return M

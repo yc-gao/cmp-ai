@@ -2,14 +2,6 @@ local cmp_cfg = require('cmp_ai.config')
 
 local source = {}
 
-function do_complete(before, after, callback)
-    if cmp_cfg.provider then
-        cmp_cfg.provider.complete(before, after, callback)
-    else
-        callback()
-    end
-end
-
 function source:complete(params, callback)
     local cursor = params.context.cursor
 
@@ -21,7 +13,11 @@ function source:complete(params, callback)
     table.insert(lines_after, 1, params.context.cursor_after_line)
     local after = table.concat(lines_after, '\n')
 
-    do_complete(before, after, callback)
+    if cmp_cfg.provider then
+        cmp_cfg.provider.complete(before, after, callback)
+    else
+        callback()
+    end
 end
 
 return source
