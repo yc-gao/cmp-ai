@@ -1,20 +1,13 @@
+local cmp_cfg = require('cmp_ai.config')
+
 local source = {}
 
 function do_complete(before, after, callback)
-    callback({
-        { label = 'January' },
-        { label = 'February' },
-        { label = 'March' },
-        { label = 'April' },
-        { label = 'May' },
-        { label = 'June' },
-        { label = 'July' },
-        { label = 'August' },
-        { label = 'September' },
-        { label = 'October' },
-        { label = 'November' },
-        { label = 'December' },
-    })
+    if cmp_cfg.provider then
+        cmp_cfg.provider.complete(before, after, callback)
+    else
+        callback()
+    end
 end
 
 function source:complete(params, callback)
@@ -32,4 +25,3 @@ function source:complete(params, callback)
 end
 
 return source
-
